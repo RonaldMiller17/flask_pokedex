@@ -43,7 +43,8 @@ def index():
     # making list of pokemons 
     pokemon =["Pikachu", "Charizard", "Squirtle", "Jigglypuff",  
            "Bulbasaur", "Gengar", "Charmander", "Mew", "Lugia", "Gyarados"] 
-    return render_template('base.html', len = len(Pokemons), Pokemon = pokemon)
+
+    return render_template('base.html', len = len(pokemon), Pokemon = pokemon)
 
 
 if __name__ == "__main__":
