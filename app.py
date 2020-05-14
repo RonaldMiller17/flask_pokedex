@@ -4,7 +4,6 @@ import os
 import requests
 import json
 import pandas as pd
-# from tables import Results
 from database import db_session
 from database import init_db
 from models import Pokemon_Model
@@ -32,8 +31,6 @@ def get_pokemon(entry):
         "name": entry.pokemon_species.name
     }
 
-# print(Pokemon_Model.query.all())
-# print(db_session.query(name).all())
 # pokemon_list = list(map(get_pokemon, pokedex.pokemon_entries))
 # pokemon_list = [x.get_pokemon() for x in pokedex.pokemon_entries]
 
@@ -104,7 +101,6 @@ def index():
         print(f"{pokemon.name} {pokemon.shape}")
 
 
-    print("test")
     # print(Pokemon_Model.query.all())
     # print(db_session.query(Pokemon_Model.capture_rate).all())
     for pokemon in Pokemon_Model.query.all():
@@ -113,10 +109,13 @@ def index():
 
         results.append(
             {
+                "id": pokemon.id,
                 "Name": pokemon.name,
                 "Catch Rate": pokemon.capture_rate,
                 "Type(s)": pokemon.types,
-                "Shape": pokemon.shape
+                "Shape": pokemon.shape,
+                "Color": pokemon.color,
+                "Description": pokemon.description
             }
         )
     # print(db_session.query.all())
