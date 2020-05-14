@@ -21,11 +21,17 @@ def init_db():
     '''
     Creates table data from api requests to pokebase wrapper
     TODO: find faster way to iterate, for loop is ugly
+    TODO: need to figure out how to convert catch rate to percentage, depends on # of pokemon caught
     '''
     pokedex = pb.pokedex(2) # get pokedex data for kanto - '2'
     for entry in pokedex.pokemon_entries:
         pokemon = pb.pokemon(entry.entry_number) # get pokemon data based on pokedex entry api
-        print(f"{pokemon.name} {pokemon.species.shape.name}")
+        print(pokemon.name)
+        for desc in pokemon.species.flavor_text_entries:
+            if desc.language.name == 'en':
+                description = desc.flavor_text
+                # print(desc.flavor_text)
+                break
         type_list = []
         for types in pokemon.types:
             type_list.append(types.type.name)
@@ -33,6 +39,8 @@ def init_db():
             name = pokemon.name,
             types = str(type_list),
             capture_rate = pokemon.species.capture_rate,
-            shape = pokemon.species.shape.name
+            shape = pokemon.species.shape.name,
+            color = pokemon.species.color.name,
+            description = description
             ))
     db_session.commit()
