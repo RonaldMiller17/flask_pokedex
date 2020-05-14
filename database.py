@@ -14,20 +14,24 @@ Base.query = db_session.query_property()
 
 def init_db():
     
-    # import
     from models import Pokemon_Model
 
     Base.metadata.create_all(bind=engine)
 
-    # get pokemon data
-    pokedex = pb.pokedex(2)
+    '''
+    Creates table data from api requests to pokebase wrapper
+    TODO: find faster way to iterate, for loop is ugly
+    '''
+    pokedex = pb.pokedex(2) # get pokedex data for kanto - '2'
     for entry in pokedex.pokemon_entries:
-        pokemon = pb.pokemon(entry.entry_number)
-        # print(entry)
+        pokemon = pb.pokemon(entry.entry_number) # get pokemon data based on pokedex entry api
         print(f"{pokemon.name} {pokemon.species.shape.name}")
-        db_session.add(Pokemon_Model(
+        type_list = []
+        for types in pokemon.types:
+            type_list.append(types.type.name)
+        db_session.add(Pokemon_Model( # create pokemon model, fill data, and commit to db
             name = pokemon.name,
-            types = str(pokemon.types),
+            types = str(type_list),
             capture_rate = pokemon.species.capture_rate,
             shape = pokemon.species.shape.name
             ))
