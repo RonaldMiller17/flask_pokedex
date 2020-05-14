@@ -27,14 +27,16 @@ def init_db():
     for entry in pokedex.pokemon_entries:
         pokemon = pb.pokemon(entry.entry_number) # get pokemon data based on pokedex entry api
         print(pokemon.name)
-        for desc in pokemon.species.flavor_text_entries:
+
+        for desc in pokemon.species.flavor_text_entries: # iterate over descriptions and find english translation
             if desc.language.name == 'en':
                 description = desc.flavor_text
-                # print(desc.flavor_text)
                 break
+
         type_list = []
         for types in pokemon.types:
             type_list.append(types.type.name)
+
         db_session.add(Pokemon_Model( # create pokemon model, fill data, and commit to db
             name = pokemon.name,
             types = str(type_list),
