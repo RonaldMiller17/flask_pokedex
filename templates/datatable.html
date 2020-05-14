@@ -21,14 +21,14 @@
     <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
 
   </head>
-  <body>
-  <h1>Flask Pokedex 1.0</h1>
+  <body style="background-color:gray;">
+  <h1 style="text-align:center">Flask Pokedex 1.0</h1>
     <div class="card">
       <div class="card-body">
         <button class="btn btn-success mt-2">Export to CSV</button>
         <div class="mt-4">
           {% if request.method == 'GET'%}
-            <table id="proxies" class="display table nowrap responsive" style="width: 100%%">
+            <table id="proxies" class="display table nowrap responsive" style="width: 100%">
               <thead>
                 <tr>
                     {% for header in results[0].keys() %}
