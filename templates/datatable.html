@@ -41,8 +41,10 @@
                 {% for row in results %}
                   <tr>
                     {% for index in range(0, len(fieldnames)) %}
-                        
                         <td>
+                        {% if index == 0%}
+                            <img src= {{url_for('static', filename='images/' + images[row['id'] - 1])}}>
+                        {% endif %}
                         {{row[fieldnames[index]]}}
                         </td>
                     {% endfor %}
