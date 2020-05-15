@@ -33,7 +33,7 @@
       <div class="card-body">
         <div class="mt-4">
           {% if request.method == 'GET'%}
-            <table id="proxies" class="display table nowrap responsive" style="width: 100%">
+            <table id="pokedex" class="display table nowrap responsive" style="width: 100%">
               <thead>
                 <tr>
                     {% for header in results[0].keys() %}
@@ -64,7 +64,7 @@
   </body>
   <script type="text/javascript">
     $(document).ready(function() {
-        $('#proxies').DataTable( {
+        $('#pokedex').DataTable( {
             dom: 'Blfrtip',
             buttons: [
                 'excel'
