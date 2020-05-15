@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import pokebase as pb
 from flask import Flask
 import requests
+import os
 
 engine = create_engine('sqlite:///pokedex.db', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
@@ -43,7 +44,7 @@ def init_db():
 
         # TODO: check if file already exists
         img_data = requests.get(pokemon.sprites.front_default).content
-        base_path = "static/images/"
+        base_path = os.getcwd() + '/static/images/'
         filename = f'pokemon_{entry.entry_number}.jpg'
         # print(base_path + filename)
         with open(base_path + filename, 'wb') as handler:
