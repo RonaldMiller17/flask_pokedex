@@ -1,5 +1,6 @@
 # imports
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 import os
 import requests
 import json
@@ -18,16 +19,10 @@ write these pokemon and their traits to table
 TODO: implement alembic migrations
 '''
 
-# initialize db
-# db = init_db()
-# exit(1)
-
 app = Flask(__name__, static_folder='static')
-
-# @app.cli.command('initdb')
-# def initdb_command():
-#     init_db()
-#     print('Initialized the database.')
+# TODO: add proper config
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 
 # teardown database session
