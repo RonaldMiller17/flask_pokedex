@@ -82,7 +82,7 @@ def home():
     # print(fieldnames)
 
     # render template with data, headers, and images
-    return render_template('datatable.html', results=results, fieldnames=fieldnames, images=images, len=len)
+    return render_template('base.html', results=results, fieldnames=fieldnames, images=images, len=len)
 
 if __name__ == "__main__":
     app.run(debug=True) 
