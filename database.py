@@ -22,7 +22,10 @@ def init_db():
     '''
     Creates table data from api requests to pokebase wrapper
     TODO: find faster way to iterate, for loop is ugly
+
     TODO: need to figure out how to convert catch rate to percentage, depends on # of pokemon caught
+    there seems to be a lot of complexity in this in terms of ball type,
+    hp, etc. For now, I will use the ratio catch_rate/255.
     '''
     pokedex = pb.pokedex(2) # get pokedex data for kanto - '2'
     for entry in pokedex.pokemon_entries:
@@ -38,10 +41,6 @@ def init_db():
         for types in pokemon.types:
             type_list.append(types.type.name)
 
-        # download sprite url - this didnt work too well
-        # sprite = pb.SpriteResource('pokemon', entry.entry_number)
-        # print(pokemon.sprites.front_default)
-
         img_data = requests.get(pokemon.sprites.front_default).content
         base_path = "/Users/aurora_secondary/python_projects/flask_pokedex/static/images/"
         filename = f'pokemon_{entry.entry_number}.jpg'
@@ -53,7 +52,7 @@ def init_db():
         db_session.add(Pokemon_Model( # create pokemon model, fill data, and commit to db
             name = pokemon.name,
             types = str(type_list),
-            capture_rate = pokemon.species.capture_rate,
+            capture_rate = round((pokemon.species.capture_rate / 255) * 100),
             shape = pokemon.species.shape.name,
             color = pokemon.species.color.name,
             description = description,
