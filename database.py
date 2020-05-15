@@ -30,7 +30,7 @@ def init_db():
     pokedex = pb.pokedex(2) # get pokedex data for kanto - '2'
     for entry in pokedex.pokemon_entries:
         pokemon = pb.pokemon(entry.entry_number) # get pokemon data based on pokedex entry api
-        print(pokemon.name)
+        print(f"{entry.entry_number} {pokemon.name}")
 
         for desc in pokemon.species.flavor_text_entries: # iterate over descriptions and find english translation
             if desc.language.name == 'en':
@@ -41,11 +41,11 @@ def init_db():
         for types in pokemon.types:
             type_list.append(types.type.name)
 
+        # TODO: check if file already exists
         img_data = requests.get(pokemon.sprites.front_default).content
         base_path = "/Users/aurora_secondary/python_projects/flask_pokedex/static/images/"
         filename = f'pokemon_{entry.entry_number}.jpg'
-        # TODO: check if file already exists
-        print(base_path + filename)
+        # print(base_path + filename)
         with open(base_path + filename, 'wb') as handler:
             handler.write(img_data)
 
