@@ -4,12 +4,20 @@ from sqlalchemy import Column, Integer, String
 from database import Base
 
 
-# pokemon model
+'''
+Model representing pokemon attributes
+
+id (unique), name (unique), types, capture_rate, 
+shape, color, description, and sprite url
+
+Note: types is a list cast as a string, need to 
+find a better way to represent this data
+'''
 class Pokemon_Model(Base):
     __tablename__ = 'pokedex'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(50))
+    name = Column(String(50), unique=True)
     types = Column(String(50))
     capture_rate = Column(String(50))
     shape = Column(String(50))
@@ -25,8 +33,6 @@ class Pokemon_Model(Base):
         self.color = color
         self.description = description
         self.sprite_url = sprite_url
-
-
 
     def __repr__(self):
         return '<Pokemon %r>' % (self.name)
