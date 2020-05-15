@@ -6,7 +6,6 @@ import requests
 import json
 import pandas as pd
 from database import db_session
-from database import init_db
 from models import Pokemon_Model
 import pokebase as pb
 import csv
@@ -22,6 +21,7 @@ TODO: implement alembic migrations
 app = Flask(__name__, static_folder='static')
 # TODO: add proper config
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pokedex.db'
 db = SQLAlchemy(app)
 
 
