@@ -23,7 +23,7 @@ app = Flask(__name__, static_folder='static')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pokedex.db'
 db = SQLAlchemy(app)
-
+db.create_all()
 
 # teardown database session
 @app.teardown_appcontext
