@@ -3,6 +3,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import pokebase as pb
 from flask import Flask
+import requests
 
 engine = create_engine('sqlite:///pokedex.db', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
@@ -37,12 +38,24 @@ def init_db():
         for types in pokemon.types:
             type_list.append(types.type.name)
 
+        # download sprite url - this didnt work too well
+        # sprite = pb.SpriteResource('pokemon', entry.entry_number)
+        # print(pokemon.sprites.front_default)
+
+        img_data = requests.get(pokemon.sprites.front_default).content
+        base_path = "/Users/aurora_secondary/python_projects/flask_pokedex/static/images/"
+        # TODO: check if file already exists
+        print(base_path + f'pokemon_{entry.entry_number}.jpg')
+        with open(base_path + f'pokemon_{entry.entry_number}.jpg', 'wb') as handler:
+            handler.write(img_data)
+
         db_session.add(Pokemon_Model( # create pokemon model, fill data, and commit to db
             name = pokemon.name,
             types = str(type_list),
             capture_rate = pokemon.species.capture_rate,
             shape = pokemon.species.shape.name,
             color = pokemon.species.color.name,
-            description = description
+            description = description,
+            sprite_url = f"pokemon_{entry.entry_number}.jpg" # get image url for sprite using 'front_default'
             ))
     db_session.commit()
