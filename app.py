@@ -19,11 +19,12 @@ TODO: implement alembic migrations
 '''
 
 app = Flask(__name__, static_folder='static')
-# TODO: add proper config
+# TODO: move to .config file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pokedex.db'
 db = SQLAlchemy(app)
 db.create_all()
+
 
 # teardown database session
 @app.teardown_appcontext
@@ -43,8 +44,9 @@ def home():
 
         # iterate over pokemon model instances in database
         for pokemon in Pokemon_Model.query.all():
-
-            images.append(pokemon.sprite_url) # append images url to image list
+            
+            # append images url to image list
+            images.append(pokemon.sprite_url)
             # print(pokemon.sprite_url)
 
             # append dict with headers and data to list
@@ -65,6 +67,7 @@ def home():
 
         # render template with data, headers, and images
         return render_template('base.html', results=results, fieldnames=fieldnames, images=images, len=len)
+
     elif request.method == 'POST':
         return render_template(results=None, fieldnames=None, images=None, len=len)
 
