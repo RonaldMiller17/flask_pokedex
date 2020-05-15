@@ -15,14 +15,16 @@ class Pokemon_Model(Base):
     shape = Column(String(50))
     color = Column(String(15))
     description = Column(String(100))
+    sprite_url = Column(String(100)) # storing only url for now, may consider full image binary
 
-    def __init__(self, name=None, types=None, capture_rate=None, shape=None, color=None, description=None):
+    def __init__(self, name=None, types=None, capture_rate=None, shape=None, color=None, description=None, sprite_url=None):
         self.name = name
         self.types = types
         self.capture_rate = capture_rate
         self.shape = shape
         self.color = color
         self.description = description
+        self.sprite_url = sprite_url
 
 
 
