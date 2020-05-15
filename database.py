@@ -44,9 +44,10 @@ def init_db():
 
         img_data = requests.get(pokemon.sprites.front_default).content
         base_path = "/Users/aurora_secondary/python_projects/flask_pokedex/static/images/"
+        filename = f'pokemon_{entry.entry_number}.jpg'
         # TODO: check if file already exists
-        print(base_path + f'pokemon_{entry.entry_number}.jpg')
-        with open(base_path + f'pokemon_{entry.entry_number}.jpg', 'wb') as handler:
+        print(base_path + filename)
+        with open(base_path + filename, 'wb') as handler:
             handler.write(img_data)
 
         db_session.add(Pokemon_Model( # create pokemon model, fill data, and commit to db
@@ -56,6 +57,6 @@ def init_db():
             shape = pokemon.species.shape.name,
             color = pokemon.species.color.name,
             description = description,
-            sprite_url = f"pokemon_{entry.entry_number}.jpg" # get image url for sprite using 'front_default'
+            sprite_url = filename # get image url for sprite using 'front_default'
             ))
     db_session.commit()
