@@ -43,7 +43,7 @@ def init_db():
 
         # TODO: check if file already exists
         img_data = requests.get(pokemon.sprites.front_default).content
-        base_path = "/Users/aurora_secondary/python_projects/flask_pokedex/static/images/"
+        base_path = "static/images/"
         filename = f'pokemon_{entry.entry_number}.jpg'
         # print(base_path + filename)
         with open(base_path + filename, 'wb') as handler:
