@@ -23,7 +23,7 @@ class Pokemon_Model(Base):
     shape = Column(String(50))
     color = Column(String(15))
     description = Column(String(100))
-    sprite_url = Column(String(100)) # storing only url for now, may consider full image binary
+    sprite_url = Column(String(100)) # storing only path for now, may move to serving file using s3
 
     def __init__(self, name=None, types=None, capture_rate=None, shape=None, color=None, description=None, sprite_url=None):
         self.name = name
