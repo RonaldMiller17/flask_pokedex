@@ -15,3 +15,6 @@ Using Flask, Python3, SQLAlchemy ORM and Alembic we would like you to create a s
 sprite as well.
 
 ● Deploy a sample of the application to a free instance of AWS or Heroku
+
+
+Project is deployed at: https://flask-pokedex-deploy.herokuapp.com
